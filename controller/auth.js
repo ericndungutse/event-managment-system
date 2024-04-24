@@ -31,7 +31,6 @@ const signinUser = (user) => {
 
 // ********* Sign up ************
 export const signup = async (req, res, next) => {
-  const { email } = req.body;
   try {
     // 1) Validate user data
     const { error } = signupValidationSchema.validate(
