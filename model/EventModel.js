@@ -11,8 +11,9 @@ const eventSchema = new mongoose.Schema(
       required: true,
     },
     location: {
-      type: String,
-      required: true,
+      coordinates: [Number],
+      address: String,
+      description: String,
     },
     availableTickets: {
       type: Number,
