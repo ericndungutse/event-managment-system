@@ -6,15 +6,7 @@ import {
   loginValidationSchema,
   signupValidationSchema,
 } from '../validation/authValidations.js';
-
-export const generateJWToken = (userInfo) => {
-  const userToken = jwt.sign(
-    { userInfo },
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: '2d' }
-  );
-  return userToken;
-};
+import { generateJWToken } from '../utils/jwt.js';
 
 // Create JWT
 const signinUser = (user) => {
@@ -37,7 +29,7 @@ const signinUser = (user) => {
   };
 };
 
-// ********* Signup ************
+// ********* Sign up ************
 export const signup = async (req, res, next) => {
   const { email } = req.body;
   try {
@@ -55,9 +47,15 @@ export const signup = async (req, res, next) => {
         .json({ status: 'fail', message: error.message });
     }
 
+    const { firstName, lastName, email, password } =
+      req.body;
+
     // 2) Create user
     await User.create({
-      ...req.body,
+      firstName,
+      lastName,
+      email,
+      password,
     });
 
     // 3) Send Successful response
@@ -80,6 +78,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
+// ********* Sign in ************
 export const signin = async (req, res) => {
   try {
     let { email, password } = req.body;
