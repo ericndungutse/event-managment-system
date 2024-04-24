@@ -40,7 +40,42 @@ export const getEvents = async (req, res) => {
   }
 };
 
-// TODO Get Event By Id
+// GET EVENT BY ID
+export const getEvent = async (req, res) => {
+  try {
+    // 1) Validate event id
+    const { error } = mongoIdValidator.validate(
+      req.params,
+      {
+        errors: { label: 'key', wrap: { label: false } },
+      }
+    );
+
+    if (error) {
+      return res
+        .status(400)
+        .json({ status: 'fail', message: error.message });
+    }
+
+    const eventId = req.params.id;
+
+    // Find the event by ID
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      return res
+        .status(404)
+        .json({ message: 'Event not found' });
+    }
+
+    res.status(200).json(event);
+  } catch (err) {
+    console.error('Error fetching event:', err);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error' });
+  }
+};
 
 // DELETE AN EVENT BY ADMIN
 export const deleteEvent = async (req, res) => {
