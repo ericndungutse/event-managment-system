@@ -1,4 +1,5 @@
 import Event from '../model/EventModel.js';
+import APIFeatures from '../utils/APIFeatures.js';
 import { mongoIdValidator } from '../validation/mongoidValidator.js';
 
 // CREATE AND EVENT
@@ -23,8 +24,14 @@ export const createEvent = async (req, res) => {
 // GET ALL EVENTS
 export const getEvents = async (req, res) => {
   try {
-    // TODO: Where date is > today
-    const events = await Event.find();
+    // Create Query
+    let features = new APIFeatures(Event.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const events = await features.query;
 
     res.status(200).json({
       results: events.length,
