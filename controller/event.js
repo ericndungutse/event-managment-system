@@ -8,7 +8,6 @@ export const createEvent = async (req, res) => {
     await newEvent.save();
 
     res.status(201).json({
-      status: 'success',
       message: 'Event created successfully!',
       event: newEvent,
     });
@@ -28,7 +27,6 @@ export const getEvents = async (req, res) => {
     const events = await Event.find();
 
     res.status(200).json({
-      status: 'success',
       results: events.length,
       events,
     });
@@ -54,7 +52,7 @@ export const getEvent = async (req, res) => {
     if (error) {
       return res
         .status(400)
-        .json({ status: 'fail', message: error.message });
+        .json({ message: error.message });
     }
 
     const eventId = req.params.id;
@@ -77,6 +75,48 @@ export const getEvent = async (req, res) => {
   }
 };
 
+// UPDATE EVENT BY ID BY ADMIN
+export const updateEvent = async (req, res) => {
+  try {
+    // 1) Validate event id
+    const { error } = mongoIdValidator.validate(
+      req.params,
+      {
+        errors: { label: 'key', wrap: { label: false } },
+      }
+    );
+
+    if (error) {
+      return res
+        .status(400)
+        .json({ message: error.message });
+    }
+
+    const eventId = req.params.id;
+
+    // Update Event
+    const event = await Event.findByIdAndUpdate(
+      eventId,
+      req.body
+    );
+
+    if (!event) {
+      return res
+        .status(404)
+        .json({ message: 'Event not found' });
+    }
+
+    res
+      .status(200)
+      .json({ message: 'Event updated successfully ' });
+  } catch (err) {
+    console.error('Error updating event:', err);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error' });
+  }
+};
+
 // DELETE AN EVENT BY ADMIN
 export const deleteEvent = async (req, res) => {
   try {
@@ -91,7 +131,7 @@ export const deleteEvent = async (req, res) => {
     if (error) {
       return res
         .status(400)
-        .json({ status: 'fail', message: error.message });
+        .json({ message: error.message });
     }
 
     const eventId = req.params.id;

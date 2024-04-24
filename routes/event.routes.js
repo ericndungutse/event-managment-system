@@ -4,6 +4,7 @@ import {
   deleteEvent,
   getEvent,
   getEvents,
+  updateEvent,
 } from '../controller/event.js';
 import { isLoggedIn } from '../middleware/authentication.js';
 import { restrictTo } from '../middleware/authorization.js';
@@ -16,6 +17,6 @@ router.get('/', getEvents);
 router.get('/:id', getEvent);
 router.use(isLoggedIn, restrictTo('admin'));
 router.post('/', createEvent);
-router.route('/:id').delete(deleteEvent);
+router.route('/:id').put(updateEvent).delete(deleteEvent);
 
 export default router;
