@@ -158,3 +158,57 @@ export const getBooking = async (req, res) => {
       .json({ message: 'Internal Server Error' });
   }
 };
+
+// Cancel Booking
+export const cancelBooking = async (req, res) => {
+  try {
+    // 1) Validate event id
+    const { error } = mongoIdValidator.validate(
+      req.params,
+      {
+        errors: { label: 'key', wrap: { label: false } },
+      }
+    );
+
+    if (error) {
+      return res
+        .status(400)
+        .json({ message: error.message });
+    }
+
+    const bookingId = req.params.id;
+
+    // Build Query based on role
+    // Admin: Can Cancel any booking
+    // User: Can only cancel his booking
+    const query = {
+      _id: bookingId,
+    };
+
+    if (req.user.role === 'user') query.user = req.user._id;
+
+    // Find and update cancel booking
+    const booking = await Booking.findOneAndUpdate(
+      query,
+      {
+        canceled: true,
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!booking) {
+      return res
+        .status(404)
+        .json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json(booking);
+  } catch (err) {
+    console.error('Error fetching Booking:', err);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error' });
+  }
+};
