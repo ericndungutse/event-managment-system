@@ -8,16 +8,12 @@ import {
 import dateFormatter from '../../utils/dateFormatter';
 
 export default function EventCard({
-  id,
   title,
   date,
   location,
 }) {
   return (
-    <div
-      className='bg-primary-color text-white drop-shadow-md overflow-hidden max-w-[24rem] rounded'
-      key={id}
-    >
+    <div className='bg-primary-color text-white drop-shadow-md overflow-hidden max-w-[24rem] rounded'>
       <div className='p-4 flex flex-col'>
         <h3 className='tracking-wider text-xl font-semibold'>
           {title}

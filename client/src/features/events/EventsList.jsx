@@ -7,12 +7,14 @@ import EventCardSkeleton from './EventCardSkeleton';
 async function fetchEvents() {
   try {
     const res = await axios.get(
-      'https://event-managment-system-sw2q.onrender.com/api/v1/events'
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/events`
     );
 
     return res.data.events;
   } catch (error) {
+    console.error(error);
     // TODO: HANDLE ERROR
+    return [];
   }
 }
 
@@ -39,7 +41,7 @@ export default function EventsList() {
         <>
           {events.map(({ id, title, date, location }) => (
             <EventCard
-              id={id}
+              key={id}
               title={title}
               location={location}
               date={date}
