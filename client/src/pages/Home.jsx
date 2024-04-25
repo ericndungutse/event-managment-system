@@ -1,6 +1,6 @@
-import React from "react";
-import BookingsList from "../features/bookings/BookingsList";
+import React from 'react';
+import EventsList from '../features/events/EventsList';
 
 export default function Home() {
-  return <BookingsList />;
+  return <EventsList />;
 }

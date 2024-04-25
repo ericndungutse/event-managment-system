@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 // Routes
 import authRouter from './routes/auth.routes.js';
@@ -9,6 +10,7 @@ import bookingRounter from './routes/booking.routes.js';
 const app = express();
 dotenv.config();
 
+app.use(cors());
 app.use(express.json());
 
 // Routing

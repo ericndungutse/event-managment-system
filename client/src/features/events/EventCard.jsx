@@ -5,25 +5,34 @@ import {
   FaRegCalendarCheck,
   FaLocationArrow,
 } from 'react-icons/fa6';
+import dateFormatter from '../../utils/dateFormatter';
 
-export default function BookingCard() {
+export default function EventCard({
+  id,
+  title,
+  date,
+  location,
+}) {
   return (
-    <div className='bg-primary-color text-white flex-grow w-[16rem] max-w-[16rem] drop-shadow-md overflow-hidden rounded'>
+    <div
+      className='bg-primary-color text-white drop-shadow-md overflow-hidden max-w-[24rem] rounded'
+      key={id}
+    >
       <div className='p-4 flex flex-col'>
         <h3 className='tracking-wider text-xl font-semibold'>
-          Exciting Event Title 1
+          {title}
         </h3>
 
-        <div className='mt-6 flex flex-col gap-4'>
+        <div className='mt-10 flex flex-col gap-4'>
           <div className='flex flex-col gap-2'>
             <p className='text-xs font-light flex gap-1 items-center'>
               <FaRegCalendarCheck className='inline-block text-xs' />{' '}
-              Date: April 30, 2024
+              {dateFormatter.format(new Date(date))}
             </p>
 
             <p className='text-xs font-light flex gap-1 items-center'>
               <FaLocationArrow className='inline-block text-xs' />{' '}
-              Address: 123 Main St, City, Country
+              {location.address}
             </p>
           </div>
 

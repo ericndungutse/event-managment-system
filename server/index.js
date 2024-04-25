@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 async function init() {
   try {
-    await mongoose.connect(process.env.CLOUD_DB);
+    await mongoose.connect(process.env.LOCAL_DB);
 
     app.listen(PORT, () => {
       console.log('Database connection successful!');
