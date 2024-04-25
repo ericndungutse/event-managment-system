@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Booking from '../model/bookingModel.js';
 import { bookingValidation } from '../validation/bookingValidation.js';
 import Event from '../model/EventModel.js';
+import APIFeatures from '../utils/APIFeatures.js';
 
 // CREATE BOOKING
 export const createBooking = async (req, res) => {
@@ -70,6 +71,37 @@ export const createBooking = async (req, res) => {
     res.status(400).json({
       status: 'error',
       message: 'Internal server error.',
+    });
+  }
+};
+
+// GET ALL EVENTS
+export const getBookings = async (req, res) => {
+  try {
+    const query = {};
+    // Users: Query only their bookings
+    if (req.user.role === 'user') query.user = req.user._id;
+
+    // Create Query
+    let features = new APIFeatures(
+      Booking.find(query),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const bookings = await features.query;
+
+    res.status(200).json({
+      results: bookings.length,
+      bookings,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Error retrieving bookings',
+      error: err.message,
     });
   }
 };
