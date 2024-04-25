@@ -21,7 +21,14 @@ const eventSchema = new mongoose.Schema(
     },
   },
   {
-    toJSON: { virtuals: true },
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform(doc, ret) {
+        delete ret._id;
+        delete ret.__v;
+      },
+    },
     toObject: { virtuals: true },
   }
 );
