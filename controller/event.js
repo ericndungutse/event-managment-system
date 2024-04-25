@@ -2,7 +2,7 @@ import Event from '../model/EventModel.js';
 import APIFeatures from '../utils/APIFeatures.js';
 import { mongoIdValidator } from '../validation/mongoidValidator.js';
 
-// CREATE AND EVENT
+// CREATE EVENT
 export const createEvent = async (req, res) => {
   try {
     const newEvent = new Event(req.body);
