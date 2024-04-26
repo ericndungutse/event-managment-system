@@ -1,21 +1,13 @@
-import Header from './components/Header';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import SignIn from './pages/SignIn';
 
 function App() {
   return (
-    <div className='px-40'>
-      <Header />
-      <div className='flex justify-center mb-10 mt-10'>
-        <h1 className='flex flex-col items-center font-extralight text-3xl'>
-          <span>Browse Our Upcoming </span>
-          <span className=' text-primary-color font-semibold'>
-            Events{' '}
-          </span>
-          In One Place
-        </h1>
-      </div>
-      <Home />
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/sign-in' element={<SignIn />} />
+    </Routes>
   );
 }
 
