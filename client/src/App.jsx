@@ -3,10 +3,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import { useUser } from './context/UserContex';
 import DashboardRoot from './features/dashboard/DashRoot';
-
-function Events() {
-  return <h1>Events</h1>;
-}
+import Events from './features/dashboard/Events';
 
 function App() {
   const { isCheckingAuth } = useUser();

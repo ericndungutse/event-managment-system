@@ -1,22 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import EventCard from './EventCard';
 import EventCardSkeleton from './EventCardSkeleton';
-
-async function fetchEvents() {
-  try {
-    const res = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/v1/events`
-    );
-
-    return res.data.events;
-  } catch (error) {
-    console.error(error);
-    // TODO: HANDLE ERROR
-    return [];
-  }
-}
+import { fetchEvents } from '../../services/eventsApis';
 
 export default function EventsList() {
   const { data: events, isLoading } = useQuery({

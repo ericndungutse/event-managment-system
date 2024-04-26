@@ -5,7 +5,7 @@ import Logo from '../../components/Logo';
 function DashboardRoot() {
   return (
     <div className='w-full'>
-      <header className='h-[8vh] border-b border-gray-300 px-2 flex items-center'>
+      <header className='h-[8vh] border-b border-gray-300 px-2 flex items-center bg-white'>
         <Logo />
       </header>
       <main className='h-[92vh] flex'>
@@ -13,7 +13,7 @@ function DashboardRoot() {
           <SideNav />
         </aside>
         <section className='flex-1 flex flex-col overflow-auto'>
-          <div className='flex-1'>
+          <div className='flex-1 bg-white'>
             <Outlet />
           </div>
         </section>

@@ -9,10 +9,10 @@ export default function SideNav() {
   return (
     <ul className='flex flex-col w-40'>
       <div className='flex-1 flex flex-col gap-2'>
-        {user.role === 'admin ' && (
+        {user.role === 'admin' && (
           <li>
             <NavLink
-              className='w-full block bg-[#e9ffff] text-primary-color font-normal hover:bg-gray-400 transition-all hover:text-white rounded px-2'
+              className='w-full block bg-[#abffff] text-primary-color font-normal hover:bg-gray-400 transition-all hover:text-white rounded px-2 py-2 text-base'
               to='events'
             >
               Events
@@ -22,7 +22,7 @@ export default function SideNav() {
 
         <li>
           <NavLink
-            className='w-full block bg-[#e9ffff] text-primary-color font-normal hover:bg-gray-400 transition-all hover:text-white rounded px-2'
+            className='w-full block bg-[#abffff] text-primary-color font-normal hover:bg-gray-400 transition-all hover:text-white rounded px-2 py-2 text-base'
             to='bookings'
           >
             Bookings
