@@ -43,7 +43,7 @@ export const signup = async (req, res, next) => {
     if (error) {
       return res
         .status(400)
-        .json({ status: 'fail', message: error.message });
+        .json({ message: error.message });
     }
 
     const { firstName, lastName, email, password } =
@@ -59,19 +59,16 @@ export const signup = async (req, res, next) => {
 
     // 3) Send Successful response
     res.status(201).json({
-      status: 'success',
       message: 'User created successfully.',
     });
   } catch (error) {
     console.error(error);
     if (error.code === 11000) {
       return res.status(400).json({
-        status: 'fail',
         message: `Email (${email}) already in use.`,
       });
     }
     res.status(500).json({
-      status: 'fail',
       message: 'Internal server error',
     });
   }
@@ -92,7 +89,7 @@ export const signin = async (req, res) => {
     if (error) {
       return res
         .status(400)
-        .json({ status: 'fail', message: error.message });
+        .json({ message: error.message });
     }
 
     const user = await User.findOne({
@@ -102,7 +99,6 @@ export const signin = async (req, res) => {
     // Check if use does not exist
     if (!user) {
       return res.status(401).json({
-        status: 'fail',
         message: 'Invalid credentials.',
       });
     }
@@ -110,7 +106,6 @@ export const signin = async (req, res) => {
     // Verify Password password
     if (!(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({
-        status: 'fail',
         message: 'Invalid credentials.',
       });
     }
@@ -118,11 +113,8 @@ export const signin = async (req, res) => {
     const signinInfo = signinUser(user);
 
     res.status(200).json({
-      status: 'success',
       token: signinInfo.token,
-      data: {
-        user: signinInfo.user,
-      },
+      user: signinInfo.user,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

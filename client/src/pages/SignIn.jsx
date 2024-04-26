@@ -1,16 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PageLayout from '../ui/PageLayout';
 import SignInForm from '../features/SignIn/SignInForm';
-import { Link } from 'react-router-dom';
 
 export default function SignIn() {
   return (
     <PageLayout>
-      <div className='flex flex-col items-center justify-center py-12 -mt-3 w-full md:w-3/4 gap-6'>
-        <div className='max-w-80 w-80 flex justify-center flex-col items-center'>
-          <h2 className='text-primary-color text-3xl font-light text-center mb-8'>
+      <div className='flex flex-col items-center justify-center py-12 -mt-3 w-full gap-6'>
+        <div className='max-w-80 w-80 flex justify-center flex-col items-center bg-white rounded shadow-xl drop-shadow-xl p-4'>
+          <h2 className='text-primary-color text-3xl font-normal text-center mb-8'>
             Sign in
-            <hr className='w-56 h-[0.5px] bg-primary-color max-auto my-4 border-0 rounded' />
+            <hr className='w-56 h-[1px] bg-primary-color max-auto my-4 border-0 rounded' />
           </h2>
           <SignInForm />
           <p className=''>

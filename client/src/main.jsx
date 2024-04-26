@@ -1,4 +1,5 @@
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 import {
   QueryClient,
   QueryClientProvider,
@@ -20,5 +21,24 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <App />
       </QueryClientProvider>
     </BrowserRouter>
+    <Toaster
+      position='top-center'
+      gutter={12}
+      containerStyle={{ margin: '8px' }}
+      toastOptions={{
+        success: { duration: 3000 },
+        error: {
+          duration: 5000,
+        },
+        style: {
+          fontSize: '16px',
+          textAlign: 'center',
+          maxWidth: '500px',
+          padding: '16px 24px',
+          backgroundColor: 'white',
+          color: 'black',
+        },
+      }}
+    />
   </React.StrictMode>
 );
