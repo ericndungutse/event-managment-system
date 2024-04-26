@@ -120,3 +120,23 @@ export const signin = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Get Account info of user (email, names, role)
+export const getMe = async (req, res) => {
+  const { email, role, id, firstName, lastName, photo } =
+    req.user;
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: {
+        id,
+        email,
+        firstName,
+        lastName,
+        photo,
+        role,
+      },
+    },
+  });
+};

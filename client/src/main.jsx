@@ -10,35 +10,38 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App.jsx';
 import './index.css';
+import UserProvider from './context/UserContex.jsx';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <App />
-      </QueryClientProvider>
-    </BrowserRouter>
-    <Toaster
-      position='top-center'
-      gutter={12}
-      containerStyle={{ margin: '8px' }}
-      toastOptions={{
-        success: { duration: 3000 },
-        error: {
-          duration: 5000,
-        },
-        style: {
-          fontSize: '16px',
-          textAlign: 'center',
-          maxWidth: '500px',
-          padding: '16px 24px',
-          backgroundColor: 'white',
-          color: 'black',
-        },
-      }}
-    />
+    <UserProvider>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <App />
+        </QueryClientProvider>
+      </BrowserRouter>
+      <Toaster
+        position='top-center'
+        gutter={12}
+        containerStyle={{ margin: '8px' }}
+        toastOptions={{
+          success: { duration: 3000 },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            fontSize: '16px',
+            textAlign: 'center',
+            maxWidth: '500px',
+            padding: '16px 24px',
+            backgroundColor: 'white',
+            color: 'black',
+          },
+        }}
+      />
+    </UserProvider>
   </React.StrictMode>
 );

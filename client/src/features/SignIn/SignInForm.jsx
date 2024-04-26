@@ -37,11 +37,11 @@ export default function SignInForm() {
 
   const { isPending, mutate: signin } = useMutation({
     mutationFn: async ({ email, password }) => {
-      await signInUserApi(email, password);
+      return await signInUserApi(email, password);
     },
 
-    onSuccess: (user) => {
-      toast.success('Login success');
+    onSuccess: (data) => {
+      localStorage.setItem('token', data.token);
       // navigate('/dashboard', { replace: true });
     },
 
