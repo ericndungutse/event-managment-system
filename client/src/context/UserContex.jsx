@@ -39,12 +39,12 @@ function UserProvider({ children }) {
     }
   );
 
-  function onLogin(user) {
+  function onSignin(user) {
     setUser(user);
   }
 
-  function onLogout() {
-    localStorage.removeItem('selectedKey');
+  function signOut() {
+    localStorage.removeItem('token');
     setUser(null);
   }
 
@@ -56,7 +56,7 @@ function UserProvider({ children }) {
 
         const res = await checkAuthentication(token);
 
-        onLogin({
+        onSignin({
           ...res.data.user,
           token,
         });
@@ -74,8 +74,8 @@ function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         user,
-        onLogin,
-        onLogout,
+        onSignin,
+        signOut,
         isCheckingAuth,
       }}
     >

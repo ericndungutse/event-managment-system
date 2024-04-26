@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import ErrorMessage from '../../components/ErrorMessage';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { useUser } from '../../context/UserContex';
 
 async function signInUserApi(email, password) {
   try {
@@ -31,6 +32,7 @@ async function signInUserApi(email, password) {
 }
 
 export default function SignInForm() {
+  const { onSignin } = useUser();
   const [signInError, setSigninError] = useState('');
 
   const navigate = useNavigate();
@@ -42,6 +44,12 @@ export default function SignInForm() {
 
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
+
+      onSignin({
+        ...data.user,
+        token: data.token,
+      });
+
       // navigate('/dashboard', { replace: true });
     },
 
