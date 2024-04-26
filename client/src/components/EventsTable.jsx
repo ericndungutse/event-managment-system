@@ -3,7 +3,11 @@ import { FiTrash2, FiCheck, FiEdit3 } from 'react-icons/fi';
 import dateFormatter from '../utils/dateFormatter';
 import Button from './Button';
 
-export default function EventsTable({ events, isLoading }) {
+export default function EventsTable({
+  events,
+  isLoading,
+  openModel,
+}) {
   return (
     <div className='flex flex-col'>
       <div className='overflow-x-auto'>
@@ -225,7 +229,9 @@ export default function EventsTable({ events, isLoading }) {
               </table>
             )}
           </div>
-          <Button>Add Event</Button>
+          <Button onClick={() => openModel(true)}>
+            Add Event
+          </Button>
         </div>
       </div>
     </div>

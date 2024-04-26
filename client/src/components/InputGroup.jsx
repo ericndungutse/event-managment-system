@@ -5,9 +5,10 @@ export default function InputGroup({
   htmlFor,
   labelText,
   children,
+  customClasses,
 }) {
   return (
-    <div className='flex flex-col gap-1'>
+    <div className={`flex flex-col gap-1 ${customClasses}`}>
       <InputLabel htmlFor={htmlFor}>{labelText}</InputLabel>
       {children}
     </div>
