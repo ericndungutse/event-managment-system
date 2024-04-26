@@ -93,7 +93,10 @@ export const getBookings = async (req, res) => {
       .limitFields()
       .paginate();
 
-    const bookings = await features.query;
+    const bookings = await features.query.populate({
+      path: 'event',
+      select: 'title',
+    });
 
     res.status(200).json({
       results: bookings.length,

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import InputGroup from '../../components/InputGroup';
@@ -86,14 +85,14 @@ export default function SignInForm() {
             pattern:
               /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
           })}
-          className='bg-grey-200 px-3 text-sm py-2 rounded border outline-none valid:border-green-700'
+          className='bg-grey-200 px-3 py-2 rounded border outline-none valid:border-green-700'
           id='email'
           placeholder='Email'
         />
       </InputGroup>
 
       {errors['email'] && (
-        <span className='text-red-600 -mt-2 text-xs'>
+        <span className='text-red-600 -mt-2'>
           {(errors.email.message && errors.email.message) ||
             'Invalid email address'}
         </span>
@@ -115,7 +114,7 @@ export default function SignInForm() {
           {...register('password', {
             required: 'This field is required',
           })}
-          className='bg-grey-200 px-3 text-sm py-2 rounded border outline-none focus:invalid:border-red-400 valid:border-green-700'
+          className='bg-grey-200 px-3 py-2 rounded border outline-none focus:invalid:border-red-400 valid:border-green-700'
           id='password'
           placeholder='password'
         />
@@ -123,13 +122,13 @@ export default function SignInForm() {
 
       {errors['password'] &&
         errors['password']?.message && (
-          <span className='text-red-600 -mt-2 text-xs'>
+          <span className='text-red-600 -mt-2 '>
             {errors['password']?.message}
           </span>
         )}
       <Link
         href='#'
-        className='text-xs block text-primary-color hover:underline -mt-2'
+        className=' block text-primary-color hover:underline -mt-2'
       >
         Forgot password?
       </Link>

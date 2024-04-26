@@ -3,13 +3,16 @@ import { FiTrash2, FiCheck, FiEdit3 } from 'react-icons/fi';
 import dateFormatter from '../utils/dateFormatter';
 import Button from './Button';
 
-export default function EventsTable({ events, isLoading }) {
+export default function BookingsTable({
+  bookings,
+  isLoading,
+}) {
   return (
     <div className='flex flex-col'>
       <div className='overflow-x-auto'>
         <div className='w-full px-12 inline-block align-middle'>
-          <h2 className='text-gray-500 text-3xl font-bold mb-8 '>
-            All Events
+          <h2 className='text-gray-500 text-3xl font-bold mb-8'>
+            All Bookings
             <hr className='w-full h-[1px] bg-primary-color max-auto my-4 border-0 rounded' />
           </h2>
 
@@ -20,32 +23,34 @@ export default function EventsTable({ events, isLoading }) {
                   <tr className='bg-gray-50'>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500'
+                      className='px-6 py-3 font-bold text-left text-gray-500 '
                     >
                       #
                     </th>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500'
+                      className='px-6 py-3 font-bold text-left text-gray-500 '
                     >
-                      Title
+                      Event
                     </th>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500'
+                      className='px-6 py-3 font-bold text-left text-gray-500 '
                     >
-                      Date
+                      Number of Tickets
                     </th>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500'
+                      className='px-6 py-3 font-bold text-left text-gray-500 '
                     >
-                      Available Tickets
+                      Status
                     </th>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500'
-                    ></th>
+                      className='px-6 py-3 font-bold text-left text-gray-500 '
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,56 +147,62 @@ export default function EventsTable({ events, isLoading }) {
                   <tr>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500 '
+                      className='px-6 py-3 font-bold text-left text-gray-500  '
                     >
                       #
                     </th>
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500 '
+                      className='px-6 py-3 font-bold text-left text-gray-500  '
                     >
-                      Title
+                      Event
                     </th>
 
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500 '
+                      className='px-6 py-3 font-bold text-left text-gray-500  '
                     >
-                      Date
+                      Number of Tickets
                     </th>
 
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500 '
+                      className='px-6 py-3 font-bold text-left text-gray-500  '
                     >
-                      Available Tickets
+                      Status
                     </th>
 
                     <th
                       scope='col'
-                      className='px-6 py-3 font-bold text-left text-gray-500 '
+                      className='px-6 py-3 font-bold text-left text-gray-500  '
                     ></th>
                   </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
-                  {events.map((event, index) => {
+                  {bookings.map((booking, index) => {
                     return (
-                      <tr key={event.id}>
+                      <tr key={booking.id}>
                         <td className='px-6 py-4 font-medium text-gray-800 whitespace-nowrap'>
                           {index + 1}
                         </td>
                         <td className='px-6 py-4 text-gray-800 whitespace-nowrap'>
-                          {event.title}
+                          {booking.event.title}
                         </td>
 
                         <td className='px-6 py-4 text-gray-800 whitespace-nowrap'>
-                          {dateFormatter.format(
-                            new Date(event.date)
+                          {booking.nummberOfTickets}
+                        </td>
+
+                        <td className='px-6 py-4 text-gray-800 whitespace-nowrap'>
+                          {booking.canceled ? (
+                            <span className='bg-red-100 text-red-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400'>
+                              Canceled
+                            </span>
+                          ) : (
+                            <span className='bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400'>
+                              Active
+                            </span>
                           )}
-                        </td>
-
-                        <td className='px-6 py-4 text-gray-800 whitespace-nowrap'>
-                          {event.availableTickets}
                         </td>
 
                         <td className='px-6 py-4 font-medium text-left whitespace-nowrap'>
@@ -225,7 +236,7 @@ export default function EventsTable({ events, isLoading }) {
               </table>
             )}
           </div>
-          <Button>Add Event</Button>
+          <Button>Add Booking</Button>
         </div>
       </div>
     </div>
