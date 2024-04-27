@@ -93,7 +93,7 @@ export default function AddEventForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='w-full flex flex-col gap-3 px-8'
+      className='w-full flex flex-col gap-3 px-8 my-5'
     >
       <div className='flex gap-3 w-full'>
         <InputGroup

@@ -7,11 +7,11 @@ export default function Model({
 }) {
   return (
     <>
-      <div className='overflow-y-auto flex backdrop-blur  bg-[rgba(0,0,0,0.2)] overflow-x-hidden fixed top-0 right-0 left-0 z-50 b-0 justify-center items-center w-full md:inset-0 max-h-full'>
-        <div className='relative p-4 w-max -mt-5 '>
-          <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
+      <div className='overflow-y-auto flex bg-[rgba(0,0,0,0.2)] overflow-x-hidden fixed top-0 right-0 left-0 z-50 b-0 justify-center items-center w-full md:inset-0 max-h-full'>
+        <div className='w-max h-full'>
+          <div className='relative bg-white mt-11 rounded-lg shadow dark:bg-gray-700 mb-5'>
             <div className='flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600'>
-              <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>
+              <h3 className='text-xl font-semibold text-gray-900 px-4 dark:text-white'>
                 {title}
               </h3>
               <button
@@ -32,7 +32,7 @@ export default function Model({
                   <path
                     stroke='currentColor'
                     strokeLinecap='round'
-                    strokeLinejoin='round'
+                    strokeLineJoin='round'
                     strokeWidth='2'
                     d='m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6'
                   />

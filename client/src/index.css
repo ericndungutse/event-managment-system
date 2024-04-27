@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.aside-nav-link:hover {
+  svg {
+    color: #008080 !important;
+  }
+}

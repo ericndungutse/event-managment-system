@@ -18,17 +18,24 @@ export default function SideNav() {
       <div className='flex-1 flex flex-col gap-4'>
         <li>
           <NavLink
-            className='w-full text-gray-600 font-normal hover:bg-gray-400 transition-all hover:text-white rounded flex gap-2 items-center'
+            className='w-full text-gray-600 font-normal hover:bg-[#ecffff] transition-all hover:text-primary-color p-1 rounded flex gap-2 items-center aside-nav-link'
+            style={{
+              hover: {
+                svg: {
+                  color: 'green',
+                },
+              },
+            }}
             to='/'
           >
-            <HiOutlineHome className='w-[1.4rem] h-[1.4rem] text-gray-400' />
+            <HiOutlineHome className='w-[1.4rem] h-[1.4rem] text-gray-400 ' />
             Home
           </NavLink>
         </li>
         {user.role === 'admin' && (
           <li>
             <NavLink
-              className='w-full text-gray-900 font-normal hover:bg-gray-400 transition-all hover:text-white rounded flex gap-2 items-center'
+              className='w-full text-gray-600 font-normal hover:bg-[#ecffff] transition-all hover:text-primary-color p-1 rounded flex gap-2 items-center aside-nav-link'
               to='events'
             >
               <HiOutlineStar className='w-[1.4rem] h-[1.4rem] text-gray-400' />
@@ -39,7 +46,7 @@ export default function SideNav() {
 
         <li>
           <NavLink
-            className='w-full text-gray-900 font-normal hover:bg-gray-400 transition-all hover:text-white rounded flex gap-2 items-center'
+            className='w-full text-gray-600 font-normal hover:bg-[#ecffff] transition-all hover:text-primary-color p-1 rounded flex gap-2 items-center aside-nav-link'
             to='bookings'
           >
             <HiOutlineBriefcase className='w-[1.4rem] h-[1.4rem] text-gray-400' />{' '}
