@@ -8,7 +8,7 @@ export default function Model({
   return (
     <>
       <div className='overflow-y-auto flex backdrop-blur bg-[rgba(0,0,0,0.2)] overflow-x-hidden fixed top-0 right-0 left-0 z-50 b-0 justify-center items-center w-full md:inset-0 max-h-full'>
-        <div className='relative p-4 w-full max-w-3xl max-h-full -mt-5 '>
+        <div className='relative p-4 w-max -mt-5 '>
           <div className='relative bg-white rounded-lg shadow dark:bg-gray-700'>
             <div className='flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600'>
               <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>

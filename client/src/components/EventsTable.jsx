@@ -1,15 +1,109 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiTrash2, FiCheck, FiEdit3 } from 'react-icons/fi';
+import {
+  HiEye,
+  HiOutlinePencilAlt,
+  HiOutlineTrash,
+  // HiArrowDownOnSquare,
+} from 'react-icons/hi';
 import dateFormatter from '../utils/dateFormatter';
 import Button from './Button';
+import Model from './Model';
+import axios from 'axios';
+import {
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { useUser } from '../context/UserContex';
+import toast from 'react-hot-toast';
+
+export async function deleteEventApi(id, token) {
+  try {
+    const res = await axios({
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/events/${id}`,
+      method: 'DELETE',
+
+      headers: {
+        'content-type': 'application/json',
+        Authorization: token
+          ? `Bearer ${token}`
+          : `Bearer ${token}`,
+      },
+    });
+
+    console.log(res);
+
+    // return res.data.bookings;
+  } catch (error) {
+    throw new Error('Error Deleting event');
+  }
+}
 
 export default function EventsTable({
   events,
   isLoading,
   openModel,
 }) {
+  const [isDeleteModelOpen, setIsDeleteModelOpen] =
+    useState(false);
+  const [id, setId] = useState('');
+  const queryClient = useQueryClient();
+  const {
+    user: { token },
+  } = useUser();
+
+  const { isPending, mutate: deleteEvent } = useMutation({
+    mutationFn: async ({ id }) => {
+      return await deleteEventApi(id, token);
+    },
+
+    onSuccess: () => {
+      setIsDeleteModelOpen(false);
+      toast.success('Event deleted');
+      queryClient.invalidateQueries({
+        queryKey: ['events'],
+      });
+    },
+
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   return (
     <div className='flex flex-col'>
+      {isDeleteModelOpen && (
+        <Model
+          title='Delete Event'
+          closeModel={setIsDeleteModelOpen}
+        >
+          <div className='px-4 flex flex-col gap-3 w-[24rem]'>
+            <p>
+              Are you sure you want to delete this RESOURCE
+              NAME permanently? This action cannot be
+              undone.
+            </p>
+
+            <div className='flex gap-2 justify-end'>
+              <button
+                className='align-middle transition-all ease-linear text-gray-600 border duration-100  border-primary-color py-0.5 px-4 rounded-full font-light disabled:opacity-60 disabled:shadow-inner'
+                onClick={() => setIsDeleteModelOpen(false)}
+                disabled={isPending}
+              >
+                Cancel
+              </button>
+              <Button
+                onClick={() => {
+                  deleteEvent({ id: id });
+                }}
+                disabled={isPending}
+              >
+                Delete
+              </Button>
+            </div>
+          </div>
+        </Model>
+      )}
       <div className='overflow-x-auto'>
         <div className='w-full px-12 inline-block align-middle'>
           <h2 className='text-gray-500 text-3xl font-bold mb-8 '>
@@ -202,23 +296,25 @@ export default function EventsTable({
                           <div className='c flex gap-1'>
                             <button
                               type='button'
-                              className='text-white  bg-green-700 hover:bg-green-800  rounded p-1 focus:outline-none '
+                              className='rounded p-1 hover:bg-gray-100'
                             >
-                              <FiCheck className='text-xl' />
+                              <HiEye className='w-[1.2rem] h-[1.2rem] text-gray-500' />
                             </button>
-
                             <button
                               type='button'
-                              className='text-white  bg-red-700 hover:bg-red-800  rounded p-1 focus:outline-none '
+                              className='rounded p-1 hover:bg-gray-100'
                             >
-                              <FiTrash2 className='text-xl' />
+                              <HiOutlinePencilAlt className='w-[1.2rem] h-[1.2rem] text-gray-500' />
                             </button>
-
                             <button
+                              onClick={() => {
+                                setId(event.id);
+                                setIsDeleteModelOpen(true);
+                              }}
                               type='button'
-                              className='text-gray-900  bg-gray-200 hover:bg-gray-300  rounded p-1 focus:outline-none '
+                              className='rounded p-1 hover:bg-gray-100'
                             >
-                              <FiEdit3 className='text-xl' />
+                              <HiOutlineTrash className='w-[1.2rem] h-[1.2rem] text-gray-500' />
                             </button>
                           </div>
                         </td>
