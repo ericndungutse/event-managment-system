@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-query';
 import { useUser } from '../context/UserContex';
 import toast from 'react-hot-toast';
+import AddEventForm from '../features/dashboard/AddEventForm';
 
 export async function deleteEventApi(id, token) {
   try {
@@ -44,10 +45,16 @@ export default function EventsTable({
   isLoading,
   openModel,
 }) {
+  const [eventToEdit, setEventToEdit] = useState(null);
   const [isDeleteModelOpen, setIsDeleteModelOpen] =
     useState(false);
+
+  const [isEditModelOpen, setIsEditModelOpen] =
+    useState(false);
+
   const [id, setId] = useState('');
   const queryClient = useQueryClient();
+
   const {
     user: { token },
   } = useUser();
@@ -102,6 +109,28 @@ export default function EventsTable({
               </Button>
             </div>
           </div>
+        </Model>
+      )}
+
+      {isEditModelOpen && (
+        <Model
+          closeModel={setIsEditModelOpen}
+          title='Edit event'
+        >
+          <AddEventForm
+            closeModel={setIsEditModelOpen}
+            eventToEdit={{
+              title: eventToEdit.title,
+              address: eventToEdit.location.address,
+              description: eventToEdit.location.description,
+              latitude: eventToEdit.location.coordinates[1],
+              longitude:
+                eventToEdit.location.coordinates[0],
+              availableTickets:
+                eventToEdit.availableTickets,
+              id: eventToEdit.id,
+            }}
+          />
         </Model>
       )}
       <div className='overflow-x-auto'>
@@ -303,6 +332,10 @@ export default function EventsTable({
                             <button
                               type='button'
                               className='rounded p-1 hover:bg-gray-100'
+                              onClick={() => {
+                                setEventToEdit(event);
+                                setIsEditModelOpen(true);
+                              }}
                             >
                               <HiOutlinePencilAlt className='w-[1.2rem] h-[1.2rem] text-gray-500' />
                             </button>

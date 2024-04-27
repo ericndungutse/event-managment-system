@@ -39,8 +39,40 @@ async function addEventApi(eventData, token) {
       );
   }
 }
+async function updateApi(eventData, id, token) {
+  try {
+    const res = await axios({
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/events/${id}`,
+      method: 'PUT',
+      data: {
+        ...eventData,
+      },
+      headers: {
+        'content-type': 'application/json',
+        Authorization: token
+          ? `Bearer ${token}`
+          : `Bearer ${token}`,
+      },
+    });
 
-export default function AddEventForm({ closeModel }) {
+    console.log(res);
+
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    if (error.response.status >= 400)
+      throw new Error(error.response.data.message);
+    else
+      throw new Error(
+        'Something went wrong! Please try again'
+      );
+  }
+}
+
+export default function AddEventForm({
+  closeModel,
+  eventToEdit,
+}) {
   const [addError, setAddError] = useState('');
   const queryClient = useQueryClient();
   const {
@@ -51,7 +83,10 @@ export default function AddEventForm({ closeModel }) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: eventToEdit ? eventToEdit : null,
+  });
+  console.log(eventToEdit);
 
   const { isPending, mutate: addEvent } = useMutation({
     mutationFn: async ({
@@ -61,6 +96,19 @@ export default function AddEventForm({ closeModel }) {
       date,
       availableTickets,
     }) => {
+      if (eventToEdit)
+        return await await updateApi(
+          {
+            title,
+            location,
+            description,
+            date,
+            availableTickets,
+          },
+          eventToEdit.id,
+          token
+        );
+
       return await addEventApi(
         {
           title,
@@ -183,7 +231,7 @@ export default function AddEventForm({ closeModel }) {
         </legend>
 
         <div className='flex flex-col gap-4'>
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-center gap-2'>
             <InputGroup
               labelText='Address'
               htmlFor='address'

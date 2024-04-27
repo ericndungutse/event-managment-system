@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchEvents } from '../../services/eventsApis';
 import EventsTable from '../../components/EventsTable';
 import Model from '../../components/Model';
-import SignInForm from '../SignIn/SignInForm';
 import AddEventForm from './AddEventForm';
 
 export default function Events() {
