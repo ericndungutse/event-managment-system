@@ -9,5 +9,5 @@ export default function Protect({ children }) {
     return <Navigate replace to='/sign-in' />;
   }
 
-  return <>{children}</>;
+  return children;
 }

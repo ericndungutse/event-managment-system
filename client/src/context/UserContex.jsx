@@ -34,11 +34,9 @@ function UserProvider({ children }) {
   const token = localStorage.getItem('token');
   const [redirectRoute, setRedirectRoute] = useState('');
   const [user, setUser] = useState(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(
-    function () {
-      return token ? true : false;
-    }
-  );
+
+  const [isCheckingAuth, setIsCheckingAuth] =
+    useState(true);
 
   function onSignin(user) {
     setUser(user);
@@ -53,7 +51,6 @@ function UserProvider({ children }) {
     async function checkAuth() {
       try {
         if (!token) return;
-        setIsCheckingAuth(true);
 
         const res = await checkAuthentication(token);
 

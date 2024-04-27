@@ -34,14 +34,14 @@ export default function EventCard({
   }
 
   return (
-    <div className='bg-primary-color text-white drop-shadow-md overflow-hidden max-w-[28rem] rounded'>
+    <div className='bg-primary-color text-white drop-shadow-md overflow-hidden rounded'>
       <div className='p-4 flex flex-col'>
         <h3 className='tracking-wider text-xl font-semibold'>
           {title}
         </h3>
 
         <div className='mt-10 flex flex-col gap-4'>
-          <div className='flex flex-col gap-2'>
+          <div className='flex flex-col gap-2 mb-4'>
             <p className=' font-light flex gap-1 items-center'>
               <FaRegCalendarCheck className='inline-block ' />{' '}
               {dateFormatter.format(new Date(date))}

@@ -7,13 +7,18 @@ import Events from './features/dashboard/Events';
 import Bookings from './features/dashboard/Bookings';
 import EventPage from './pages/EventPage';
 import Protect from './components/Protect';
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
   const { isCheckingAuth, user } = useUser();
 
   return (
     <>
-      {isCheckingAuth === true ? null : (
+      {isCheckingAuth ? (
+        <div className='h-screen flex justify-center items-center'>
+          <LoadingSpinner />
+        </div>
+      ) : (
         <Routes>
           <Route path='/' element={<Home />} />
           <Route
