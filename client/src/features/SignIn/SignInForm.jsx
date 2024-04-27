@@ -49,7 +49,7 @@ export default function SignInForm() {
         token: data.token,
       });
 
-      // navigate('/dashboard', { replace: true });
+      navigate('/dashboard', { replace: true });
     },
 
     onError: (err) => {

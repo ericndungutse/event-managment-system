@@ -11,69 +11,15 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { useUser } from '../../context/UserContex';
-
-async function addEventApi(eventData, token) {
-  try {
-    const res = await axios({
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/events`,
-      method: 'POST',
-      data: {
-        ...eventData,
-      },
-      headers: {
-        'content-type': 'application/json',
-        Authorization: token
-          ? `Bearer ${token}`
-          : `Bearer ${token}`,
-      },
-    });
-
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    if (error.response.status >= 400)
-      throw new Error(error.response.data.message);
-    else
-      throw new Error(
-        'Something went wrong! Please try again'
-      );
-  }
-}
-async function updateApi(eventData, id, token) {
-  try {
-    const res = await axios({
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/events/${id}`,
-      method: 'PUT',
-      data: {
-        ...eventData,
-      },
-      headers: {
-        'content-type': 'application/json',
-        Authorization: token
-          ? `Bearer ${token}`
-          : `Bearer ${token}`,
-      },
-    });
-
-    console.log(res);
-
-    return res.data;
-  } catch (error) {
-    console.error(error);
-    if (error.response.status >= 400)
-      throw new Error(error.response.data.message);
-    else
-      throw new Error(
-        'Something went wrong! Please try again'
-      );
-  }
-}
+import {
+  addEventApi,
+  updateApi,
+} from '../../services/eventsApis';
 
 export default function AddEventForm({
   closeModel,
   eventToEdit,
 }) {
-  const [addError, setAddError] = useState('');
   const queryClient = useQueryClient();
   const {
     user: { token },
@@ -86,7 +32,6 @@ export default function AddEventForm({
   } = useForm({
     defaultValues: eventToEdit ? eventToEdit : null,
   });
-  console.log(eventToEdit);
 
   const { isPending, mutate: addEvent } = useMutation({
     mutationFn: async ({
@@ -150,8 +95,6 @@ export default function AddEventForm({
       onSubmit={handleSubmit(onSubmit)}
       className='w-full flex flex-col gap-3 px-8'
     >
-      {addError && <ErrorMessage>{addError}</ErrorMessage>}
-
       <div className='flex gap-3 w-full'>
         <InputGroup
           labelText='Title'

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  FaArrowRight,
   FaRegCalendarCheck,
   FaLocationArrow,
 } from 'react-icons/fa6';
@@ -14,6 +13,9 @@ export default function EventCard({
   date,
   location,
   id,
+  availableTickets,
+  openBookModel,
+  setEventToBook,
 }) {
   return (
     <div className='bg-primary-color text-white drop-shadow-md overflow-hidden max-w-[28rem] rounded'>
@@ -43,7 +45,16 @@ export default function EventCard({
               More Info{' '}
               <HiArrowNarrowRight className='ml-[2px] mt-1' />
             </Link>
-            <button className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'>
+            <button
+              className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'
+              onClick={() => {
+                setEventToBook({
+                  id,
+                  maxTickets: availableTickets,
+                });
+                openBookModel(true);
+              }}
+            >
               Book your ticket{' '}
               <HiArrowNarrowRight className='mt-0.5' />
             </button>

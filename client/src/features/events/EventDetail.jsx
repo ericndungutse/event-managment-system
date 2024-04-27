@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   HiArrowNarrowRight,
   HiOutlineStar,
@@ -10,10 +10,10 @@ import {
   HiOutlineLocationMarker,
   HiOutlineCalendar,
 } from 'react-icons/hi';
-import { FaArrowRight } from 'react-icons/fa6';
 import { fetchEvent } from '../../services/eventsApis';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import BookTicket from '../bookings/BookTicket';
 
 const Loader = () => {
   return (
@@ -62,14 +62,23 @@ const Loader = () => {
 };
 
 const Event = ({ event }) => {
+  const [openBookingModel, setopenBookingModel] =
+    useState(false);
   return (
     <div className='bg-white rounded-lg shadow-md overflow-hidden'>
+      {openBookingModel && (
+        <BookTicket
+          eventId={event.id}
+          closeModel={setopenBookingModel}
+          maxTickets={event.availableTickets}
+        />
+      )}
       <div className='flex justify-between items-center p-4 bg-primary-color'>
         <h2 className='text-2xl flex items-center gap-2 font-semibold text-white'>
           <HiOutlineStar className='w-[1.8rem] h-[1.8rem] text-white' />
           {event.title}
         </h2>
-        <p className=' text-gray-100 flex items-center gap-2 text-base font-semibold'>
+        <p className=' text-gray-100 flex items-center gap-2 px-4 text-base font-semibold'>
           <HiOutlineCalendar className='w-[1.4rem] h-[1.4rem]' />
           {dateFormatter.format(new Date(event.date))}
         </p>
@@ -105,12 +114,18 @@ const Event = ({ event }) => {
           <span className='bg-[#c5ffff] w-full flex justify-between items-center text-primary-color font-medium me-2 px-2.5 text-base rounded dark:bg-blue-900 dark:text-blue-300'>
             <span className='flex items-center gap-1 p-4'>
               <HiOutlineTicket className='w-[1.4rem] h-[1.4rem]' />
-              Available Tickets: 20
+              Available Tickets: {event.availableTickets}
             </span>
-            <button className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'>
-              Book your ticket{' '}
-              <HiArrowNarrowRight className='mt-0.5' />
-            </button>
+
+            {event.availableTickets >= 1 && (
+              <button
+                className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'
+                onClick={() => setopenBookingModel(true)}
+              >
+                Book your ticket{' '}
+                <HiArrowNarrowRight className='mt-0.5' />
+              </button>
+            )}
           </span>
         </div>
       </div>

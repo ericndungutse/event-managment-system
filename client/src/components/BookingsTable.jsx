@@ -236,7 +236,6 @@ export default function BookingsTable({
               </table>
             )}
           </div>
-          <Button>Add Booking</Button>
         </div>
       </div>
     </div>
