@@ -4,7 +4,6 @@ import {
   HiEye,
   HiOutlinePencilAlt,
   HiOutlineTrash,
-  // HiArrowDownOnSquare,
 } from 'react-icons/hi';
 import dateFormatter from '../utils/dateFormatter';
 import Button from './Button';

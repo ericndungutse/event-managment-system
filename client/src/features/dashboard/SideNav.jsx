@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiLogOut, FiBarChart } from 'react-icons/fi';
+import { FiLogOut } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
 import { useUser } from '../../context/UserContex';
 

@@ -5,6 +5,7 @@ import { useUser } from './context/UserContex';
 import DashboardRoot from './features/dashboard/DashRoot';
 import Events from './features/dashboard/Events';
 import Bookings from './features/dashboard/Bookings';
+import EventPage from './pages/EventPage';
 
 function App() {
   const { isCheckingAuth, user } = useUser();
@@ -14,6 +15,10 @@ function App() {
       {isCheckingAuth === true ? null : (
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route
+            path='/events/:id'
+            element={<EventPage />}
+          />
           <Route path='/sign-in' element={<SignIn />} />
           <Route
             path='/dashboard'
