@@ -1,14 +1,89 @@
-import React from 'react';
-import { FiTrash2, FiCheck, FiEdit3 } from 'react-icons/fi';
-import dateFormatter from '../utils/dateFormatter';
+import React, { useState } from 'react';
+
+import { FcCancel } from 'react-icons/fc';
+import { cancelBooking as cancelBookingApi } from '../services/bookingsApi';
+import {
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { useUser } from '../context/UserContex';
+import toast from 'react-hot-toast';
+import Model from './Model';
 import Button from './Button';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function BookingsTable({
   bookings,
   isLoading,
 }) {
+  const {
+    user: { token },
+  } = useUser();
+
+  const [isModelOpen, setIsModelOpen] = useState(false);
+
+  const [bookingDetails, setBookingDetails] = useState({
+    bookingId: '',
+    event: '',
+  });
+
+  const queryClient = useQueryClient();
+
+  const { isPending, mutate: cancelBooking } = useMutation({
+    mutationFn: async (id) => {
+      return await cancelBookingApi(id, token);
+    },
+
+    onSuccess: () => {
+      setIsModelOpen(false);
+      toast.success('Tickets canceled!');
+      queryClient.invalidateQueries('bookings');
+    },
+  });
+
+  function handleOnClick() {
+    cancelBooking(bookingDetails.bookingId);
+  }
+
   return (
     <div className='flex flex-col'>
+      {!isModelOpen ? null : (
+        <Model
+          title='Cancel booking'
+          closeModel={setIsModelOpen}
+        >
+          <div className='w-[26rem] flex flex-col items-center px-4'>
+            <p className='mb-4 text-gray-500 font-base dark:text-gray-300'>
+              Are you sure you want to cancel this booking
+              for{' '}
+              <span className='font-bold'>
+                {bookingDetails?.event}
+              </span>{' '}
+              event?
+            </p>
+            <div className='flex gap-2 justify-end'>
+              <button
+                className='align-middle transition-all ease-linear text-gray-600 border duration-100  border-primary-color py-0.5 px-3 rounded-full font-light disabled:opacity-60 disabled:shadow-inner'
+                disabled={isPending}
+                onClick={() => setIsModelOpen(false)}
+              >
+                Cancel
+              </button>
+              <Button
+                disabled={isPending}
+                onClick={handleOnClick}
+                customClasses='transition-all'
+              >
+                {isPending ? (
+                  <> {<LoadingSpinner />} Delete</>
+                ) : (
+                  'Delete'
+                )}
+              </Button>
+            </div>
+          </div>
+        </Model>
+      )}
       <div className='overflow-x-auto'>
         <div className='w-full px-12 inline-block align-middle'>
           <h2 className='text-gray-500 text-3xl font-bold mb-8'>
@@ -175,7 +250,9 @@ export default function BookingsTable({
                     <th
                       scope='col'
                       className='px-6 py-3 font-bold text-left text-gray-500  '
-                    ></th>
+                    >
+                      Cancel
+                    </th>
                   </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
@@ -208,24 +285,24 @@ export default function BookingsTable({
                         <td className='px-6 py-4 font-medium text-left whitespace-nowrap'>
                           <div className='c flex gap-1'>
                             <button
-                              type='button'
-                              className='text-white  bg-green-700 hover:bg-green-800  rounded p-1 focus:outline-none '
+                              disabled={
+                                isPending ||
+                                booking.canceled
+                              }
+                              onClick={() => {
+                                setIsModelOpen(true);
+                                setBookingDetails((cur) => {
+                                  return {
+                                    ...cur,
+                                    bookingId: booking.id,
+                                    event:
+                                      booking.event.title,
+                                  };
+                                });
+                              }}
+                              className='hover:bg-gray-200 rounded p-1 focus:outline-none transition-all disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-none'
                             >
-                              <FiCheck className='text-xl' />
-                            </button>
-
-                            <button
-                              type='button'
-                              className='text-white  bg-red-700 hover:bg-red-800  rounded p-1 focus:outline-none '
-                            >
-                              <FiTrash2 className='text-xl' />
-                            </button>
-
-                            <button
-                              type='button'
-                              className='text-gray-900  bg-gray-200 hover:bg-gray-300  rounded p-1 focus:outline-none '
-                            >
-                              <FiEdit3 className='text-xl' />
+                              <FcCancel className='text-xl w-[1.4rem] h-[1.4rem]' />
                             </button>
                           </div>
                         </td>

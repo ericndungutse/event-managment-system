@@ -29,8 +29,6 @@ async function signUpUserApi(userData) {
 }
 
 export default function SignUpForm() {
-  const { onSignIn, redirectRoute, setRedirectRoute } =
-    useUser();
   const [signUpError, setSignUpError] = useState('');
 
   const navigate = useNavigate();

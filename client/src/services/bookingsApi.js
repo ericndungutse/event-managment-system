@@ -19,6 +19,7 @@ export async function fetchBookings(token) {
     throw new Error('Error Fetching bookings');
   }
 }
+
 export async function bookTickets(
   event,
   token,
@@ -45,5 +46,24 @@ export async function bookTickets(
     return res.data.bookings;
   } catch (error) {
     throw new Error('Error Fetching bookings');
+  }
+}
+
+export async function cancelBooking(id, token) {
+  try {
+    await axios({
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/bookings/${id}/cancel-booking`,
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: token
+          ? `Bearer ${token}`
+          : `Bearer ${token}`,
+      },
+    });
+
+    return 'Booking canceled.';
+  } catch (error) {
+    throw new Error('Error Canceling booking');
   }
 }
