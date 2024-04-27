@@ -1,7 +1,7 @@
 import React from 'react';
 import EventsList from '../features/events/EventsList';
-import ShowCase from '../ui/ShowCase';
-import PageLayout from '../ui/PageLayout';
+import PageLayout from '../components/PageLayout';
+import ShowCase from '../components/ShowCase';
 
 export default function Home() {
   return (

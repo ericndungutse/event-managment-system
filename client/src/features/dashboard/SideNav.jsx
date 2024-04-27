@@ -1,6 +1,6 @@
 import React from 'react';
-import { FiLogOut } from 'react-icons/fi';
-import { NavLink } from 'react-router-dom';
+import { HiOutlineLogout } from 'react-icons/hi';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContex';
 
 import {
@@ -11,6 +11,7 @@ import {
 
 export default function SideNav() {
   const { user, signOut } = useUser();
+  const navigate = useNavigate();
 
   return (
     <ul className='flex flex-col w-40 '>
@@ -48,10 +49,13 @@ export default function SideNav() {
       </div>
       <li>
         <button
-          className=' text-gray-500 flex gap-2 items-center hover:text-gray-900'
-          onClick={signOut}
+          className=' text-gray-700 flex gap-1 py-2 items-center hover:text-gray-900'
+          onClick={() => {
+            signOut();
+            navigate('/');
+          }}
         >
-          <FiLogOut />
+          <HiOutlineLogout className='w-[1.4rem] h-[1.4rem] text-gray-500' />
           Sign out
         </button>
       </li>

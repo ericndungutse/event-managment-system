@@ -1,8 +1,9 @@
 import React from 'react';
-import PageLayout from '../ui/PageLayout';
+
 import EventDetails from '../features/events/EventDetail';
 import { HiArrowLeft } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import PageLayout from '../components/PageLayout';
 
 export default function EventPage() {
   const navigate = useNavigate();
