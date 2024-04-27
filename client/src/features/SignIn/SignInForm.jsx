@@ -31,7 +31,8 @@ async function signInUserApi(email, password) {
 }
 
 export default function SignInForm() {
-  const { onSignin } = useUser();
+  const { onSignin, redirectRoute, setRedirectRoute } =
+    useUser();
   const [signInError, setSigninError] = useState('');
 
   const navigate = useNavigate();
@@ -42,6 +43,9 @@ export default function SignInForm() {
     },
 
     onSuccess: (data) => {
+      let successNavigateRoute = redirectRoute
+        ? redirectRoute
+        : '/dashboard';
       localStorage.setItem('token', data.token);
 
       onSignin({
@@ -49,7 +53,8 @@ export default function SignInForm() {
         token: data.token,
       });
 
-      navigate('/dashboard', { replace: true });
+      navigate(`${successNavigateRoute}`);
+      setRedirectRoute('');
     },
 
     onError: (err) => {

@@ -32,6 +32,7 @@ const UserContext = createContext();
 
 function UserProvider({ children }) {
   const token = localStorage.getItem('token');
+  const [redirectRoute, setRedirectRoute] = useState('');
   const [user, setUser] = useState(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(
     function () {
@@ -77,6 +78,8 @@ function UserProvider({ children }) {
         onSignin,
         signOut,
         isCheckingAuth,
+        redirectRoute,
+        setRedirectRoute,
       }}
     >
       {children}

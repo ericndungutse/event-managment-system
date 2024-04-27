@@ -11,9 +11,14 @@ import {
   HiOutlineCalendar,
 } from 'react-icons/hi';
 import { fetchEvent } from '../../services/eventsApis';
-import { Link, useParams } from 'react-router-dom';
+import {
+  Link,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import BookTicket from '../bookings/BookTicket';
+import { useUser } from '../../context/UserContex';
 
 const Loader = () => {
   return (
@@ -64,6 +69,17 @@ const Loader = () => {
 const Event = ({ event }) => {
   const [openBookingModel, setopenBookingModel] =
     useState(false);
+  const { user, setRedirectRoute } = useUser();
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  function handleOnClick() {
+    if (!user) {
+      setRedirectRoute(`/events/${id}`);
+      return navigate('/sign-in');
+    }
+    setopenBookingModel(true);
+  }
   return (
     <div className='bg-white rounded-lg shadow-md overflow-hidden'>
       {openBookingModel && (
@@ -120,7 +136,7 @@ const Event = ({ event }) => {
             {event.availableTickets >= 1 && (
               <button
                 className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'
-                onClick={() => setopenBookingModel(true)}
+                onClick={handleOnClick}
               >
                 Book your ticket{' '}
                 <HiArrowNarrowRight className='mt-0.5' />

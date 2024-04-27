@@ -6,7 +6,8 @@ import {
 } from 'react-icons/fa6';
 import { HiArrowNarrowRight } from 'react-icons/hi';
 import dateFormatter from '../../utils/dateFormatter';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContex';
 
 export default function EventCard({
   title,
@@ -17,6 +18,21 @@ export default function EventCard({
   openBookModel,
   setEventToBook,
 }) {
+  const { user, setRedirectRoute } = useUser();
+  const navigate = useNavigate();
+
+  function handleOnClick() {
+    if (!user) {
+      setRedirectRoute('/');
+      return navigate('/sign-in');
+    }
+    setEventToBook({
+      id,
+      maxTickets: availableTickets,
+    });
+    openBookModel(true);
+  }
+
   return (
     <div className='bg-primary-color text-white drop-shadow-md overflow-hidden max-w-[28rem] rounded'>
       <div className='p-4 flex flex-col'>
@@ -47,13 +63,7 @@ export default function EventCard({
             </Link>
             <button
               className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'
-              onClick={() => {
-                setEventToBook({
-                  id,
-                  maxTickets: availableTickets,
-                });
-                openBookModel(true);
-              }}
+              onClick={handleOnClick}
             >
               Book your ticket{' '}
               <HiArrowNarrowRight className='mt-0.5' />
