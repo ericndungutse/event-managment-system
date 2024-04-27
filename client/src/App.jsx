@@ -8,6 +8,7 @@ import Bookings from './features/dashboard/Bookings';
 import EventPage from './pages/EventPage';
 import Protect from './components/Protect';
 import LoadingSpinner from './components/LoadingSpinner';
+import SignUp from './pages/Signup';
 
 function App() {
   const { isCheckingAuth, user } = useUser();
@@ -26,6 +27,7 @@ function App() {
             element={<EventPage />}
           />
           <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/sign-up' element={<SignUp />} />
           <Route
             path='/dashboard'
             element={

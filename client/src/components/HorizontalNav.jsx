@@ -37,7 +37,7 @@ export default function HorizontalNav() {
           </Link>
 
           <Link
-            to='/sign-in'
+            to='/sign-up'
             className='bg-primary-color hover:border-primary-color align-middle text-white border border-primary-color py-0.5 px-4 rounded-full font-light'
           >
             Sign up

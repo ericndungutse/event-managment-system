@@ -59,7 +59,6 @@ function UserProvider({ children }) {
           token,
         });
       } catch (error) {
-        console.error(error);
       } finally {
         setIsCheckingAuth(false);
       }
