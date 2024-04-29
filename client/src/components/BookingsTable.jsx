@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 import Model from './Model';
 import Button from './Button';
 import LoadingSpinner from './LoadingSpinner';
+import { HiEye } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export default function BookingsTable({
   bookings,
@@ -91,7 +93,7 @@ export default function BookingsTable({
             <hr className='w-full h-[1px] bg-primary-color max-auto my-4 border-0 rounded' />
           </h2>
 
-          <div className='overflow-hidden border rounded-lg mb-4'>
+          <div className='overflow-auto border rounded-lg mb-4'>
             {(isLoading && (
               <table className='min-w-full divide-y divide-gray-200'>
                 <thead>
@@ -250,9 +252,7 @@ export default function BookingsTable({
                     <th
                       scope='col'
                       className='px-6 py-3 font-bold text-left text-gray-500  '
-                    >
-                      Cancel
-                    </th>
+                    ></th>
                   </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-200'>
@@ -304,6 +304,16 @@ export default function BookingsTable({
                             >
                               <FcCancel className='text-xl w-[1.4rem] h-[1.4rem]' />
                             </button>
+
+                            <div className='c flex gap-1'>
+                              <Link
+                                to={`${booking.id}`}
+                                type='button'
+                                className='rounded p-1 hover:bg-gray-100'
+                              >
+                                <HiEye className='w-[1.2rem] h-[1.2rem] text-gray-500' />
+                              </Link>
+                            </div>
                           </div>
                         </td>
                       </tr>

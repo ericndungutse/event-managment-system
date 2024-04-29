@@ -9,6 +9,7 @@ import EventPage from './pages/EventPage';
 import Protect from './components/Protect';
 import LoadingSpinner from './components/LoadingSpinner';
 import SignUp from './pages/Signup';
+import BookingDetails from './features/dashboard/BookingDetails';
 
 function App() {
   const { isCheckingAuth, user } = useUser();
@@ -44,6 +45,10 @@ function App() {
 
             <Route path='events' element={<Events />} />
             <Route path='bookings' element={<Bookings />} />
+            <Route
+              path='bookings/:id'
+              element={<BookingDetails />}
+            />
           </Route>
         </Routes>
       )}

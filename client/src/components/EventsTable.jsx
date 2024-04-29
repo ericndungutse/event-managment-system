@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FiTrash2, FiCheck, FiEdit3 } from 'react-icons/fi';
 import {
   HiEye,
   HiOutlinePencilAlt,
@@ -8,7 +7,6 @@ import {
 import dateFormatter from '../utils/dateFormatter';
 import Button from './Button';
 import Model from './Model';
-import axios from 'axios';
 import {
   useMutation,
   useQueryClient,
@@ -16,28 +14,7 @@ import {
 import { useUser } from '../context/UserContex';
 import toast from 'react-hot-toast';
 import AddEventForm from '../features/dashboard/AddEventForm';
-
-export async function deleteEventApi(id, token) {
-  try {
-    const res = await axios({
-      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/events/${id}`,
-      method: 'DELETE',
-
-      headers: {
-        'content-type': 'application/json',
-        Authorization: token
-          ? `Bearer ${token}`
-          : `Bearer ${token}`,
-      },
-    });
-
-    console.log(res);
-
-    // return res.data.bookings;
-  } catch (error) {
-    throw new Error('Error Deleting event');
-  }
-}
+import { deleteEventApi } from '../services/eventsApis';
 
 export default function EventsTable({
   events,
@@ -139,7 +116,7 @@ export default function EventsTable({
             <hr className='w-full h-[1px] bg-primary-color max-auto my-4 border-0 rounded' />
           </h2>
 
-          <div className='overflow-hidden border rounded-lg mb-4'>
+          <div className='overflow-auto border rounded-lg mb-4'>
             {(isLoading && (
               <table className='min-w-full divide-y divide-gray-200'>
                 <thead>

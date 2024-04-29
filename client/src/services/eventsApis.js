@@ -85,3 +85,25 @@ export async function updateApi(eventData, id, token) {
       );
   }
 }
+
+export async function deleteEventApi(id, token) {
+  try {
+    const res = await axios({
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/events/${id}`,
+      method: 'DELETE',
+
+      headers: {
+        'content-type': 'application/json',
+        Authorization: token
+          ? `Bearer ${token}`
+          : `Bearer ${token}`,
+      },
+    });
+
+    console.log(res);
+
+    // return res.data.bookings;
+  } catch (error) {
+    throw new Error('Error Deleting event');
+  }
+}

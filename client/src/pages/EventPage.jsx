@@ -11,13 +11,13 @@ export default function EventPage() {
     <PageLayout>
       <div className='mt-8 flex flex-col gap-4'>
         <button
-          className='text-primary-color border-b font-normal border-b-transparent flex w-min items-center hover:border-b hover:border-b-primary-color focus:outline-none'
+          className='text-primary-color border-b font-normal border-b-transparent flex w-max items-center hover:border-b hover:border-b-primary-color focus:outline-none'
           onClick={() => {
             navigate(-1);
           }}
         >
           <HiArrowLeft className='hover:underline mr-0.5' />{' '}
-          back
+          <span>Go back</span>
         </button>
         <EventDetails />
       </div>

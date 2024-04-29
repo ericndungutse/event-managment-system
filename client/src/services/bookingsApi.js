@@ -20,6 +20,26 @@ export async function fetchBookings(token) {
   }
 }
 
+export async function fetchBooking(id, token) {
+  try {
+    const res = await axios({
+      url: `${import.meta.env.VITE_BACKEND_URL}/api/v1/bookings/${id}`,
+      method: 'GET',
+
+      headers: {
+        'content-type': 'application/json',
+        Authorization: token
+          ? `Bearer ${token}`
+          : `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    throw new Error('Error Fetching bookings');
+  }
+}
+
 export async function bookTickets(
   event,
   token,
