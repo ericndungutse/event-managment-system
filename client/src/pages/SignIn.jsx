@@ -16,7 +16,7 @@ export default function SignIn() {
           <p className=''>
             Not registered?{' '}
             <Link
-              to='/signup'
+              to='/sign-up'
               className='text-primary-color hover:underline'
             >
               Register

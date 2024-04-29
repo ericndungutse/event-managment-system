@@ -26,7 +26,6 @@ const Loader = () => {
       <div className='flex justify-between items-center p-4 bg-primary-color'>
         <h2 className='text-2xl animate-pulse flex items-center gap-2 font-semibold text-white'>
           <span className='w-[1.8rem] h-[1.8rem] bg-gray-200 rounded-full'></span>
-          Reservation Summary
         </h2>
         <p className='text-gray-200 animate-pulse flex items-center gap-2 text-base font-semibold'>
           <span className='w-[1.4rem] h-[1.4rem] bg-gray-200 rounded-full'></span>
@@ -56,7 +55,6 @@ const Loader = () => {
           <span className='bg-gray-200 w-full flex justify-between items-center text-primary-color font-medium me-2 px-2.5 text-base rounded animate-pulse'>
             <span className='flex items-center gap-1 p-4'>
               <span className='w-[1.4rem] h-[1.4rem] bg-gray-200 rounded-full'></span>
-              Available Tickets:
             </span>
             <span className='bg-gray-200 w-16 h-8 rounded-full'></span>
           </span>

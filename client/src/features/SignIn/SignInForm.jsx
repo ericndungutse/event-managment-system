@@ -131,12 +131,12 @@ export default function SignInForm() {
             {errors['password']?.message}
           </span>
         )}
-      <Link
+      {/* <Link
         href='#'
         className=' block text-primary-color hover:underline -mt-2'
       >
         Forgot password?
-      </Link>
+      </Link> */}
       <Button
         disabled={isPending}
         customClasses='mt-4 btn-primary'
