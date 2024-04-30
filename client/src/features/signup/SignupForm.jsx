@@ -69,7 +69,7 @@ export default function SignUpForm() {
       {signUpError && (
         <ErrorMessage>{signUpError}</ErrorMessage>
       )}
-      <div className='flex gap-2 justify-between items-start'>
+      <div className='flex flex-col  gap-2 justify-between items-start md:flex-row'>
         <InputGroup
           labelText='First Name'
           htmlFor='firstName'

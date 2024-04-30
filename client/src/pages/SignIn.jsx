@@ -7,10 +7,10 @@ export default function SignIn() {
   return (
     <PageLayout>
       <div className='flex flex-col items-center justify-center py-12 -mt-3 w-full gap-6'>
-        <div className='max-w-80 w-80 flex justify-center flex-col items-center p-4'>
+        <div className='w-full md:max-w-80 flex justify-center flex-col items-center'>
           <h2 className='text-primary-color text-3xl font-normal text-center mb-8'>
             Sign in
-            <hr className='w-56 h-[1px] bg-primary-color max-auto my-4 border-0 rounded' />
+            <hr className='w-full h-[1px] bg-primary-color max-auto my-4 border-0 rounded' />
           </h2>
           <SignInForm />
           <p className=''>
