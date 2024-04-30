@@ -1,8 +1,8 @@
-## How to run EtiteEvents
+## How to run Invents
 
 1. **Using hosted version**
 
-   - **Live link**: [EtiteEvents](https://ivents.netlify.app)
+   - **Live link**: [ivents](https://ivents.netlify.app)
    - **Creadential**
      - Admin User
        - **Email**: admin@example.com

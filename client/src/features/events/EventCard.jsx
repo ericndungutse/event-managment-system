@@ -65,7 +65,7 @@ export default function EventCard({
               className='bg-[#FD673A] text-white py-1 px-4 font-normal  rounded-full flex gap-1 items-center'
               onClick={handleOnClick}
             >
-              Book your ticket{' '}
+              Book a Ticket{' '}
               <HiArrowNarrowRight className='mt-0.5' />
             </button>
           </div>

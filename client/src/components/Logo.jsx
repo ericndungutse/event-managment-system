@@ -6,8 +6,7 @@ export default function Logo() {
     <div className='flex items-center'>
       <h1 className='text-primary-color text-3xl font-mono font-extralight'>
         <Link to='/'>
-          Etite
-          <span className='text-[#FD673A]'>Events</span>
+          ive<span className='text-[#FD673A]'>nts</span>
         </Link>
       </h1>
     </div>
