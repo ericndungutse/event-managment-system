@@ -34,7 +34,7 @@ export default function EventCard({
   }
 
   return (
-    <div className='bg-primary-color text-white drop-shadow-md overflow-hidden rounded'>
+    <div className='bg-primary-color mb-5 md:mb-0 text-white drop-shadow-md overflow-hidden rounded'>
       <div className='p-4 flex flex-col'>
         <h3 className='tracking-wider text-xl font-semibold'>
           {title}
