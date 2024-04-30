@@ -44,27 +44,31 @@ const Event = ({ event }) => {
           maxTickets={event.availableTickets}
         />
       )}
-      <div className='flex justify-between items-center p-4 bg-primary-color'>
-        <h2 className='text-2xl flex items-center gap-2 font-semibold text-white'>
-          <HiOutlineStar className='w-[1.8rem] h-[1.8rem] text-white' />
+      <div className='flex gap-2 flex-col items-start p-2 md:p-4 bg-primary-color md:flex-row md:justify-between md:gap-0'>
+        <h2 className='text-xs md:text-2xl flex items-center gap-2 font-semibold text-white'>
+          <HiOutlineStar className='w-[1.2rem] h-[1.2rem] md:w-[1.8rem] md:h-[1.8rem] text-white' />
           {event.title}
         </h2>
-        <p className=' text-gray-100 flex items-center gap-2 px-4 text-base font-semibold'>
-          <HiOutlineCalendar className='w-[1.4rem] h-[1.4rem]' />
+        <p className=' text-gray-100 flex items-center gap-2 md:px-4 text-xs md:text-base font-semibold'>
+          <HiOutlineCalendar className='w-[1.2rem] h-[1.2rem] md:w-[1.8rem] md:h-[1.8rem]' />
           {dateFormatter.format(new Date(event.date))}
         </p>
       </div>
-      <div className='p-6'>
-        <h2 className='text-2xl font-semibold mb-2'>
+      <div className='p-2 md:p-6'>
+        <h2 className='text-lg font-semibold mb-2 md:text-2xl'>
           Location Details
         </h2>
 
-        <div className='mb-4 flex gap-8'>
+        <div className='mb-4 flex flex-col gap-3 md:gap-8 md:flex-row'>
           <p className='font-light basis-2/3'>
             {event.location.description}
+            Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Voluptate maiores culpa
+            tempore natus! Perferendis suscipit repellat
+            molestiae neque.
           </p>
 
-          <div className='flex basis-1/3 flex-col gap-4'>
+          <div className='flex basis-1/3 flex-col gap-2 md:gap-4'>
             <p className='flex gap-2 items-center font-normal'>
               <HiOutlineLocationMarker className='w-[1.2rem] h-[1.2rem] color-500' />{' '}
               {event.location.address}
